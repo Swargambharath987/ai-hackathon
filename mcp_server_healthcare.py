@@ -4,7 +4,7 @@ import os
 from fastmcp import FastMCP
 
 # Import Healthcare.gov tool registration
-from tools.healthcare_gov_fixed import register_healthcare_gov_tools
+from tools.healthcare_gov import register_healthcare_gov_tools
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

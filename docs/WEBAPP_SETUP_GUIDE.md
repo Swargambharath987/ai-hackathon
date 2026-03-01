@@ -17,7 +17,7 @@ You can use either `pip` or `uv` (recommended):
 
 **Option A: Using pip (Standard)**
 ```bash
-pip install fastapi uvicorn anthropic httpx fastmcp aiohttp pydantic python-dotenv
+pip install -r requirements.txt
 ```
 
 **Option B: Using uv (Faster)**
@@ -26,7 +26,7 @@ pip install fastapi uvicorn anthropic httpx fastmcp aiohttp pydantic python-dote
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Install dependencies
-uv pip install fastapi uvicorn anthropic httpx fastmcp aiohttp pydantic python-dotenv
+uv pip install -r requirements.txt
 ```
 
 ### 2. Set Up Environment Variables
@@ -76,13 +76,13 @@ python fastapi_server.py
 **Step 3: Open the web interface**
 ```bash
 # Open the HTML file in your browser
-open frontend_example.html
-# Or double-click frontend_example.html in file explorer
+open frontend.html
+# Or double-click frontend.html in file explorer
 ```
 
 ## 🌐 Application URLs
 
-- **Web Interface**: `file:///path/to/frontend_example.html`
+- **Web Interface**: `file:///path/to/frontend.html`
 - **API Server**: `http://localhost:8000`
 - **Health Check**: `http://localhost:8000/health`
 - **Available Agents**: `http://localhost:8000/agents`

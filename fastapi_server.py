@@ -39,7 +39,7 @@ class AgentConfig:
 AGENT_CONFIGS = [
     AgentConfig(
         name="EPHT_Agent",
-        server_url="http://localhost:8889/sse",
+        server_url=os.getenv("MCP_EPHT_URL", "http://localhost:8889/sse"),
         system_message="""You are a specialized CDC Environmental Public Health Tracking (EPHT) agent.
         Focus on environmental health data including:
         - Air quality measurements (PM2.5, ozone, air toxics)
@@ -52,7 +52,7 @@ AGENT_CONFIGS = [
     ),
     AgentConfig(
         name="OpenData_Agent", 
-        server_url="http://localhost:8890/sse",
+        server_url=os.getenv("MCP_OPENDATA_URL", "http://localhost:8890/sse"),
         system_message="""You are a specialized CDC Open Data agent.
         Focus on:
         - COVID-19 surveillance data
@@ -65,7 +65,7 @@ AGENT_CONFIGS = [
     ),
     AgentConfig(
         name="HealthcareAccess_Agent",
-        server_url="http://localhost:8891/sse", 
+        server_url=os.getenv("MCP_HEALTHCARE_URL", "http://localhost:8891/sse"), 
         system_message="""You are a specialized Healthcare Access agent focusing on Healthcare.gov data.
         Focus on:
         - Insurance coverage and accessibility data
@@ -79,7 +79,7 @@ AGENT_CONFIGS = [
     # NEW: Your MedlinePlus Connect Agent
     AgentConfig(
         name="MedlinePlus_Agent",
-        server_url="http://localhost:8892/sse",
+        server_url=os.getenv("MCP_MEDLINEPLUS_URL", "http://localhost:8892/sse"),
         system_message="""You are a Patient Education and Clinical Support specialist focusing on:
         - Patient education materials and health information
         - Clinical decision support and medical terminology
@@ -92,7 +92,7 @@ AGENT_CONFIGS = [
     # NEW: Your OpenFDA Agent
     AgentConfig(
         name="OpenFDA_Agent",
-        server_url="http://localhost:8893/sse",
+        server_url=os.getenv("MCP_OPENFDA_URL", "http://localhost:8893/sse"),
         system_message="""You are a Drug Safety and FDA Monitoring specialist focusing on:
         - Drug adverse events and safety signals
         - FDA recalls and enforcement actions

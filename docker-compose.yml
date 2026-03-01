@@ -1,0 +1,54 @@
+services:
+  mcp-epht:
+    build: .
+    command: python mcp_server_epht.py
+    ports:
+      - "8889:8889"
+    env_file: .env
+
+  mcp-opendata:
+    build: .
+    command: python mcp_server_opendata.py
+    ports:
+      - "8890:8890"
+    env_file: .env
+
+  mcp-healthcare:
+    build: .
+    command: python mcp_server_healthcare.py
+    ports:
+      - "8891:8891"
+    env_file: .env
+
+  mcp-medlineplus:
+    build: .
+    command: python mcp_server_medlineplus.py
+    ports:
+      - "8892:8892"
+    env_file: .env
+
+  mcp-openfda:
+    build: .
+    command: python mcp_server_openfda.py
+    ports:
+      - "8893:8893"
+    env_file: .env
+
+  api:
+    build: .
+    command: python fastapi_server.py
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      - MCP_EPHT_URL=http://mcp-epht:8889/sse
+      - MCP_OPENDATA_URL=http://mcp-opendata:8890/sse
+      - MCP_HEALTHCARE_URL=http://mcp-healthcare:8891/sse
+      - MCP_MEDLINEPLUS_URL=http://mcp-medlineplus:8892/sse
+      - MCP_OPENFDA_URL=http://mcp-openfda:8893/sse
+    depends_on:
+      - mcp-epht
+      - mcp-opendata
+      - mcp-healthcare
+      - mcp-medlineplus
+      - mcp-openfda
