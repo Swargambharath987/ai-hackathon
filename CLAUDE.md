@@ -71,5 +71,4 @@ lsof -ti:8889 | xargs kill -9   # replace port as needed
 3. **Duplicate `openDataRef`** — OpenFDA and CDC Open Data columns both used the same React ref, breaking auto-scroll. Fixed by giving each column its own ref (`ephtRef`, `medlineplusRef`, `openfdaRef`, `openDataRef`, `healthcareRef`).
 
 ## Branch History
-- `main` — original JZolton hackathon base (3 agents, broken frontend/backend mismatch)
-- `bharath` — complete working version: 5 agents, all bugs fixed, full docs
+- `main` — single working branch: 5 agents, all bugs fixed, full docs
