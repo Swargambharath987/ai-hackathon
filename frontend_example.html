@@ -102,7 +102,7 @@
         }
         .agents-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -276,6 +276,7 @@
                 "What are the current disease surveillance trends for emerging infectious diseases, and how prepared are our healthcare systems in terms of provider networks and emergency response capabilities?"
             ];
             const [agents, setAgents] = useState({
+                EPHT_Agent: [],
                 MedlinePlus_Agent: [],
                 OpenFDA_Agent: [],
                 OpenData_Agent: [],
@@ -286,8 +287,9 @@
             const [isSynthesizing, setIsSynthesizing] = useState(false);
             const [userHasScrolled, setUserHasScrolled] = useState(false);
             const [agentStatus, setAgentStatus] = useState({
+                EPHT_Agent: 'waiting',
                 MedlinePlus_Agent: 'waiting',
-                OpenFDA_Agent: 'waiting', 
+                OpenFDA_Agent: 'waiting',
                 OpenData_Agent: 'waiting',
                 Healthcare_Agent: 'waiting'
             });
@@ -295,24 +297,38 @@
             
             // Refs for auto-scrolling
             const ephtRef = useRef(null);
+            const medlineplusRef = useRef(null);
+            const openfdaRef = useRef(null);
             const openDataRef = useRef(null);
             const healthcareRef = useRef(null);
             const finalReportRef = useRef(null);
             const coordinatorRef = useRef(null);
-            
+
             // Auto-scroll effect for agent columns
             useEffect(() => {
                 if (ephtRef.current) {
                     ephtRef.current.scrollTop = ephtRef.current.scrollHeight;
                 }
             }, [agents.EPHT_Agent]);
-            
+
+            useEffect(() => {
+                if (medlineplusRef.current) {
+                    medlineplusRef.current.scrollTop = medlineplusRef.current.scrollHeight;
+                }
+            }, [agents.MedlinePlus_Agent]);
+
+            useEffect(() => {
+                if (openfdaRef.current) {
+                    openfdaRef.current.scrollTop = openfdaRef.current.scrollHeight;
+                }
+            }, [agents.OpenFDA_Agent]);
+
             useEffect(() => {
                 if (openDataRef.current) {
                     openDataRef.current.scrollTop = openDataRef.current.scrollHeight;
                 }
             }, [agents.OpenData_Agent]);
-            
+
             useEffect(() => {
                 if (healthcareRef.current) {
                     healthcareRef.current.scrollTop = healthcareRef.current.scrollHeight;
@@ -362,6 +378,7 @@
                 // Reset state
                 setIsProcessing(true);
                 setAgents({
+                    EPHT_Agent: [],
                     MedlinePlus_Agent: [],
                     OpenFDA_Agent: [],
                     OpenData_Agent: [],
@@ -574,8 +591,21 @@
                     {(Object.values(agents).some(msgs => msgs.length > 0) || isProcessing) && (
                         <div className="agents-container">
                             <div className="agent-wrapper">
-                                <div className="agent-header">📚 MedlinePlus</div>
+                                <div className="agent-header">🌍 EPHT</div>
                                 <div className="agent-column" ref={ephtRef}>
+                                    {agents.EPHT_Agent.length === 0 && isProcessing && (
+                                        <div className="agent-loading-spinner">
+                                            <div className="small-spinner"></div>
+                                            Waiting for agent...
+                                        </div>
+                                    )}
+                                    {agents.EPHT_Agent.map((msg, i) => renderMessage(msg, i))}
+                                </div>
+                            </div>
+
+                            <div className="agent-wrapper">
+                                <div className="agent-header">📚 MedlinePlus</div>
+                                <div className="agent-column" ref={medlineplusRef}>
                                     {agents.MedlinePlus_Agent.length === 0 && isProcessing && (
                                         <div className="agent-loading-spinner">
                                             <div className="small-spinner"></div>
@@ -585,10 +615,10 @@
                                     {agents.MedlinePlus_Agent.map((msg, i) => renderMessage(msg, i))}
                                 </div>
                             </div>
-                            
+
                             <div className="agent-wrapper">
                                 <div className="agent-header">⚠️ OpenFDA</div>
-                                <div className="agent-column" ref={openDataRef}>
+                                <div className="agent-column" ref={openfdaRef}>
                                     {agents.OpenFDA_Agent.length === 0 && isProcessing && (
                                         <div className="agent-loading-spinner">
                                             <div className="small-spinner"></div>
@@ -598,7 +628,7 @@
                                     {agents.OpenFDA_Agent.map((msg, i) => renderMessage(msg, i))}
                                 </div>
                             </div>
-                            
+
                             <div className="agent-wrapper">
                                 <div className="agent-header">📊 CDC Open Data</div>
                                 <div className="agent-column" ref={openDataRef}>
@@ -611,7 +641,7 @@
                                     {agents.OpenData_Agent.map((msg, i) => renderMessage(msg, i))}
                                 </div>
                             </div>
-                            
+
                             <div className="agent-wrapper">
                                 <div className="agent-header">🏥 Healthcare Access</div>
                                 <div className="agent-column" ref={healthcareRef}>

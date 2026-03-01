@@ -29,10 +29,11 @@ def main():
     
     # Server configurations
     servers = [
+        ("mcp_server_epht.py", "CDC EPHT Server (Port 8889)"),
+        ("mcp_server_opendata.py", "CDC Open Data Server (Port 8890)"),
+        ("mcp_server_healthcare.py", "Healthcare.gov Server (Port 8891)"),
         ("mcp_server_medlineplus.py", "MedlinePlus Connect Server (Port 8892)"),
         ("mcp_server_openfda.py", "OpenFDA API Server (Port 8893)"),
-        ("mcp_server_opendata.py", "CDC Open Data Server (Port 8890)"),
-        ("mcp_server_healthcare.py", "Healthcare.gov Server (Port 8891)")
     ]
     
     processes = []
@@ -53,11 +54,12 @@ def main():
     
     print("\n✅ All servers started successfully!")
     print("\nServer URLs:")
+    print("- CDC EPHT: http://localhost:8889/sse")
+    print("- CDC Open Data: http://localhost:8890/sse")
+    print("- Healthcare.gov: http://localhost:8891/sse")
     print("- MedlinePlus Connect: http://localhost:8892/sse")
     print("- OpenFDA API: http://localhost:8893/sse")
-    print("- CDC Open Data: http://localhost:8890/sse") 
-    print("- Healthcare.gov: http://localhost:8891/sse")
-    print("\n📝 You can now run: python fastapi_server_fixed.py")
+    print("\n📝 You can now run: python fastapi_server.py")
     print("\n⚠️  Press Ctrl+C to stop all servers")
     
     try:
